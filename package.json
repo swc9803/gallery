@@ -1,5 +1,5 @@
 {
-  "name": "canvas-pratice",
+  "name": "vue3-template",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -23,6 +23,8 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.0.3",
-    "prettier": "^2.4.1"
+    "prettier": "^2.4.1",
+    "sass": "^1.57.1",
+    "sass-loader": "^13.2.0"
   }
 }
