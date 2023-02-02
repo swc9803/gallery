@@ -1,49 +1,74 @@
 <template>
   <header>
+    <div class="navColor" :class="{ 'dark-mode': props.onDarkMode }" />
     <nav>
-      <div>home</div>
-      <div>github</div>
-      <div>portfolio</div>
-      <div @click="toggleDarkMode">
-        {{ props.onDarkMode ? "dark-mode" : "light-mode" }}
-        <!--해, 달 -->
+      <div class="nav-flex">
+        <div class="btn" :class="{ 'dark-mode': props.onDarkMode }">Home</div>
+        <div class="btn" :class="{ 'dark-mode': props.onDarkMode }">Github</div>
+      </div>
+      <div :class="{ 'dark-mode': props.onDarkMode }">Sung</div>
+      <div class="nav-flex">
+        <div class="btn" :class="{ 'dark-mode': props.onDarkMode }">
+          portfolio
+        </div>
+        <div
+          class="btn"
+          :class="{ 'dark-mode': props.onDarkMode }"
+          @click="toggleDarkMode"
+        >
+          {{ props.onDarkMode ? "dark-mode" : "light-mode" }}
+          <!-- 글자 크기 맞추기 -->
+        </div>
       </div>
     </nav>
   </header>
 </template>
 
 <script setup>
-import { ref, defineEmits, defineProps, onMounted } from "vue";
+import { defineEmits, defineProps } from "vue";
 
 const emit = defineEmits(["change-theme"]);
-const onDarkMode = ref(true);
 const props = defineProps({
   onDarkMode: Boolean,
 });
+
 const toggleDarkMode = () => {
   emit("change-theme");
-  onDarkMode.value = !onDarkMode.value;
   // rotate+scale-, rotate-scale+ 해, 달 변경
 };
-onMounted(() => {
-  const savedDarkMode = localStorage.getItem("onDarkMode");
-  if (savedDarkMode) {
-    onDarkMode.value = savedDarkMode === "true";
-  }
-});
+
+// const navItems = [
+//   { name: "Home" },
+//   { name: "Github" },
+//   { name: "Portfolio" },
+//   { name: props.onDarkMode ? "dark-mode" : "light-mode" },
+// ];
 </script>
 
 <style lang="scss" scoped>
 header {
+  .navColor {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    background: white;
+    opacity: 0.7;
+    transition: 0.5s;
+    z-index: -1;
+    &.dark-mode {
+      background: black;
+      color: white;
+      opacity: 0.5;
+    }
+  }
   position: fixed;
   width: 100%;
   height: 64px;
-  line-height: 64px;
-  background: transparent;
+  //   font-size: 1.2em;
   padding: 0 60px;
-  //   font-size: 1.3em;
-  z-index: 9;
   backdrop-filter: blur(8px);
+  z-index: 9;
   @media screen and (max-width: 1024px) {
     & {
       padding: 0 48px;
@@ -62,8 +87,31 @@ header {
   nav {
     display: flex;
     justify-content: space-between;
-    div {
-      border: 2px solid white;
+    align-items: center;
+    height: 100%;
+    // @media screen and (max-width: 768px) {
+    //   & {
+    //     flex-direction: column;
+    //   }
+    // }
+    .btn {
+      padding: 3px 12px;
+      border: 2px solid black;
+      border-radius: 10em;
+      cursor: pointer;
+      &.dark-mode {
+        border: 2px solid white;
+      }
+    }
+    .nav-flex {
+      display: flex;
+      gap: 12px;
+      //   @media screen and (max-width: 768px) {
+      //     & {
+      //       flex-direction: column;
+      //       gap: 0;
+      //     }
+      //   }
     }
   }
 }

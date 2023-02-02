@@ -38,14 +38,14 @@ onMounted(() => {
 <style lang="scss">
 @import "@/assets/style.scss";
 
-.dark-mode {
-  background: black;
-  color: white;
-}
 .layout {
   width: 100%;
   min-height: calc(var(--vh, 1vh) * 100);
   transition: 0.5s;
+  &.dark-mode {
+    background: black;
+    color: white;
+  }
 }
 
 .page-enter-active,

@@ -1,6 +1,5 @@
 <template>
   <div id="home">
-    <!-- --100vh  -->
     <Main />
     <div class="card-flex">
       <Card />

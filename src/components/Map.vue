@@ -25,7 +25,7 @@ const skewContent = () => {
   newPos = window.pageYOffset;
   const speed = (newPos - originPos) * 0.5;
 
-  contentsRef.value.style.transform = `skewY(${speed}deg)`;
+  contentsRef.value.style.transform = `translate(0, -50%) skewY(${speed}deg)`;
   originPos = newPos;
   skewAni = requestAnimationFrame(skewContent);
 };
@@ -43,7 +43,8 @@ onBeforeUnmount(() => {
 <style lang="scss" scoped>
 .mapWrapper {
   position: sticky;
-  top: 100px;
+  top: calc(50% + 32px);
+  transform: translate(0, -50%) skewY(0);
   display: flex;
   flex-direction: column;
   width: 20%;

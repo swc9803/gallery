@@ -17,7 +17,7 @@
     // position: relative;
     // top: 50%;
     // transform: translate(0, -50%); // 이미지 넣고 지우기
-    width: 100%;
+    width: 100%; // 1280px > 120%
     height: 100%;
     background: rgb(76, 76, 76);
     border-radius: 2em;
