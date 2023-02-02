@@ -4,4 +4,3 @@
 ```
 eslint, sass, sass-loader
 
-```# canvas-lotteria
