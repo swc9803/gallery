@@ -3,7 +3,7 @@
     <Header :onDarkMode="onDarkMode" @change-theme="changeTheme" />
     <router-view v-slot="{ Component }">
       <transition name="page">
-        <component :is="Component" />
+        <component :onDarkMode="onDarkMode" :is="Component" />
       </transition>
     </router-view>
   </div>
@@ -27,7 +27,6 @@ onMounted(() => {
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   });
 
-  // local storage
   const savedDarkMode = localStorage.getItem("onDarkMode");
   if (savedDarkMode) {
     onDarkMode.value = savedDarkMode === "true";
@@ -44,7 +43,6 @@ onMounted(() => {
   transition: 0.5s;
   &.dark-mode {
     background: black;
-    color: white;
   }
 }
 

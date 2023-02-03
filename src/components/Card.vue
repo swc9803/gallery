@@ -4,10 +4,10 @@
       <img class="thumbnail" src="@/assets/test.jpg" alt="test" />
       <div class="detail">
         <p class="title">title1</p>
+        <p>with gsap, three</p>
         <div class="moveBtn">See This Project</div>
       </div>
     </div>
-    <router-link to="about">about</router-link>
   </div>
 </template>
 
@@ -23,6 +23,7 @@ const skewContent = () => {
   const speed = (newPos - originPos) * 0.5;
 
   contentsRef.value.style.transform = `skewY(${speed}deg)`;
+
   originPos = newPos;
   skewAni = requestAnimationFrame(skewContent);
 };
@@ -51,7 +52,7 @@ onBeforeUnmount(() => {
   width: 100%;
   display: flex;
   flex-direction: column;
-  transition: transform 1s;
+  transition: transform 1.2s;
   gap: 60px;
   .boxWrapper {
     position: relative;
@@ -89,12 +90,12 @@ onBeforeUnmount(() => {
       transition: 0.5s;
       gap: 50px;
       z-index: 1;
+      color: white;
       .title {
-        color: white;
+        font-size: 1.1em;
       }
       .moveBtn {
         padding: 10px;
-        color: white;
         background: linear-gradient(
           270deg,
           rgba(255, 255, 255, 0.8),

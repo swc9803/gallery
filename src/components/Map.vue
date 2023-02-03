@@ -17,15 +17,21 @@ const maps = [
   { src: "" },
 ];
 
+// const mapArray = ref([]);
+// const mapRef = (el) => mapArray.value.push(el);
+
 const contentsRef = ref();
 let originPos, newPos;
 let skewAni;
 
 const skewContent = () => {
   newPos = window.pageYOffset;
-  const speed = (newPos - originPos) * 0.5;
+  const speed = (newPos - originPos) * 2;
 
-  contentsRef.value.style.transform = `translate(0, -50%) skewY(${speed}deg)`;
+  //   mapArray.value.forEach((map) => {
+  //     map.style.transform = `rotateX(${speed}deg)`;
+  //   });
+  contentsRef.value.style.transform = `skewY(${speed}deg)`;
   originPos = newPos;
   skewAni = requestAnimationFrame(skewContent);
 };
@@ -43,18 +49,19 @@ onBeforeUnmount(() => {
 <style lang="scss" scoped>
 .mapWrapper {
   position: sticky;
-  top: calc(50% + 32px);
-  transform: translate(0, -50%) skewY(0);
+  top: 64px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 20%;
   height: 100%;
-  transition: transform 1s;
+  transition: transform 2s;
   gap: 12px;
   opacity: 0.5;
   .map {
     width: 100%;
-    height: 50px;
+    height: 70px;
     object-fit: cover;
     background: blue;
   }

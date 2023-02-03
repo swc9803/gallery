@@ -3,10 +3,12 @@
     <div class="navColor" :class="{ 'dark-mode': props.onDarkMode }" />
     <nav>
       <div class="nav-flex">
-        <div class="btn" :class="{ 'dark-mode': props.onDarkMode }">Home</div>
+        <div class="btn" :class="{ 'dark-mode': props.onDarkMode }">
+          CodePen
+        </div>
         <div class="btn" :class="{ 'dark-mode': props.onDarkMode }">Github</div>
       </div>
-      <div :class="{ 'dark-mode': props.onDarkMode }">Sung</div>
+      <div class="logo" :class="{ 'dark-mode': props.onDarkMode }">Sung</div>
       <div class="nav-flex">
         <div class="btn" :class="{ 'dark-mode': props.onDarkMode }">
           portfolio
@@ -36,36 +38,13 @@ const toggleDarkMode = () => {
   emit("change-theme");
   // rotate+scale-, rotate-scale+ 해, 달 변경
 };
-
-// const navItems = [
-//   { name: "Home" },
-//   { name: "Github" },
-//   { name: "Portfolio" },
-//   { name: props.onDarkMode ? "dark-mode" : "light-mode" },
-// ];
 </script>
 
 <style lang="scss" scoped>
 header {
-  .navColor {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 64px;
-    background: white;
-    opacity: 0.7;
-    transition: 0.5s;
-    z-index: -1;
-    &.dark-mode {
-      background: black;
-      color: white;
-      opacity: 0.5;
-    }
-  }
   position: fixed;
   width: 100%;
   height: 64px;
-  //   font-size: 1.2em;
   padding: 0 60px;
   backdrop-filter: blur(8px);
   z-index: 9;
@@ -84,35 +63,91 @@ header {
       padding: 0 24px;
     }
   }
+  .navColor {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    background: white;
+    opacity: 0.7;
+    transition: 0.5s;
+    z-index: -1;
+    &.dark-mode {
+      background: black;
+      opacity: 0.5;
+    }
+  }
   nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    // @media screen and (max-width: 768px) {
-    //   & {
-    //     flex-direction: column;
-    //   }
-    // }
+    .logo {
+      transition: 0.5s;
+      &.dark-mode {
+        color: white;
+      }
+    }
     .btn {
       padding: 3px 12px;
-      border: 2px solid black;
+      border: 1px solid black;
       border-radius: 10em;
+      background: linear-gradient(
+        270deg,
+        rgba(0, 0, 0, 0.8),
+        rgba(0, 0, 0, 0.8),
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0)
+      );
+      background-size: 300% 300%;
+      transition: 0.3s ease-out;
       cursor: pointer;
+      &:hover {
+        background-position: 100%;
+        color: white;
+      }
       &.dark-mode {
-        border: 2px solid white;
+        border: 1px solid white;
+        color: white;
+        background: linear-gradient(
+          270deg,
+          rgba(255, 255, 255, 0.8),
+          rgba(255, 255, 255, 0.8),
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0)
+        );
+        background-size: 300% 300%;
+        &:hover {
+          background-position: 100%;
+          color: black;
+        }
       }
     }
     .nav-flex {
       display: flex;
       gap: 12px;
-      //   @media screen and (max-width: 768px) {
-      //     & {
-      //       flex-direction: column;
-      //       gap: 0;
-      //     }
-      //   }
+      @media screen and (max-width: 768px) {
+        & {
+        }
+      }
     }
+  }
+}
+
+.moveBtn {
+  color: white;
+  background: linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0)
+  );
+  background-size: 300% 300%;
+  transition: 0.7s ease-out;
+  &:hover {
+    background-position: 100%;
+    color: black;
   }
 }
 </style>

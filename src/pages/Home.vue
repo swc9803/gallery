@@ -5,16 +5,26 @@
       <Card />
       <Map />
     </div>
+    <footer :class="{ 'dark-mode': props.onDarkMode }">
+      <p>You Can See All My Code in Here!</p>
+      <p>Github</p>
+    </footer>
   </div>
 </template>
 
 <script setup>
+import { defineProps } from "vue";
+
 import Main from "@/components/Main.vue";
 import Card from "@/components/Card.vue";
 import Map from "@/components/Map.vue";
+
+const props = defineProps({
+  onDarkMode: Boolean,
+});
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 #home {
   width: 100%;
   max-width: 1920px;
@@ -58,6 +68,15 @@ import Map from "@/components/Map.vue";
       & {
         gap: 16px;
       }
+    }
+  }
+  footer {
+    margin-top: 64px;
+    padding-bottom: 64px;
+    text-align: center;
+    transition: 0.5s;
+    &.dark-mode {
+      color: white;
     }
   }
 }
