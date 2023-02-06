@@ -133,21 +133,4 @@ header {
     }
   }
 }
-
-.moveBtn {
-  color: white;
-  background: linear-gradient(
-    270deg,
-    rgba(255, 255, 255, 0.8),
-    rgba(255, 255, 255, 0.8),
-    rgba(255, 255, 255, 0),
-    rgba(255, 255, 255, 0)
-  );
-  background-size: 300% 300%;
-  transition: 0.7s ease-out;
-  &:hover {
-    background-position: 100%;
-    color: black;
-  }
-}
 </style>
