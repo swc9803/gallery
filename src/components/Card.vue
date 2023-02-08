@@ -1,10 +1,10 @@
 <template>
-  <div ref="contentsRef" class="card">
-    <div v-for="box in boxes" :key="box.id" class="boxWrapper">
+  <div ref="contentsRef" class="cardContainer">
+    <div v-for="card in cards" :key="card.id" class="cardWrapper">
       <img class="thumbnail" src="@/assets/test.jpg" alt="test" />
       <div class="detail">
-        <p class="title">title1</p>
-        <p>with gsap, three</p>
+        <p class="title">{{ card.title }}</p>
+        <p>with {{ card.skills }}</p>
         <div class="moveBtn">See This Project</div>
       </div>
     </div>
@@ -28,13 +28,13 @@ const skewContent = () => {
   skewAni = requestAnimationFrame(skewContent);
 };
 
-const boxes = [
-  { src: "" },
-  { src: "" },
-  { src: "" },
-  { src: "" },
-  { src: "" },
-  { src: "" },
+const cards = [
+  { src: "", title: "Wind Up Doll", skills: "gsap, draggable" },
+  { src: "", title: "SpotLight", skills: "three.js, gsap" },
+  { src: "", title: "Four Seasons", skills: "gsap, scrollTrigger" },
+  { src: "", title: "", skills: "" },
+  { src: "", title: "", skills: "" },
+  { src: "", title: "", skills: "" },
 ];
 
 onMounted(() => {
@@ -48,19 +48,20 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss" scoped>
-.card {
+.cardContainer {
   width: 100%;
   display: flex;
   flex-direction: column;
   transition: transform 1.2s;
   gap: 60px;
-  .boxWrapper {
+  .cardWrapper {
     position: relative;
     width: 100%;
     height: 400px;
     background: darkcyan; // 제거
     border-radius: 2em;
     transition: 0.5s;
+    box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.7);
     overflow: hidden;
     &:hover > .thumbnail {
       filter: brightness(25%);

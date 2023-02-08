@@ -66,8 +66,11 @@ onBeforeUnmount(() => {
     height: 70px;
     object-fit: cover;
     background: blue;
-    backface-visibility: hidden;
+    backface-visibility: hidden; // 뒷면 추가
+    border-radius: 1em;
+    box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.7);
     transition: transform 1s;
+    cursor: pointer;
   }
 }
 </style>

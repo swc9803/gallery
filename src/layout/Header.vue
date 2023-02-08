@@ -84,6 +84,11 @@ header {
     height: 100%;
     .logo {
       transition: 0.5s;
+      @media screen and (max-width: 768px) {
+        & {
+          order: -1;
+        }
+      }
       &.dark-mode {
         color: white;
       }
@@ -128,6 +133,17 @@ header {
       gap: 12px;
       @media screen and (max-width: 768px) {
         & {
+          display: inline-flex;
+          position: absolute;
+          left: 50%;
+          transform: translate(-50%, 0);
+          flex-direction: column;
+          gap: 12px;
+          text-align: center;
+          &:nth-child(1) {
+            // position: relative;
+            margin-top: 170px;
+          }
         }
       }
     }
