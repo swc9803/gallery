@@ -7,7 +7,11 @@
     </div>
     <footer :class="{ 'dark-mode': props.onDarkMode }">
       <p>You Can See All My Code in Here!</p>
-      <p>Github</p>
+      <div class="link">
+        <div>Github</div>
+        or
+        <div>CodePen</div>
+      </div>
     </footer>
   </div>
 </template>
@@ -77,6 +81,17 @@ const props = defineProps({
     transition: 0.5s;
     &.dark-mode {
       color: white;
+    }
+    p {
+      font-size: 1.1em;
+    }
+    .link {
+      display: flex;
+      justify-content: center;
+      div {
+        color: white;
+        background: gray;
+      }
     }
   }
 }
