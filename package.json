@@ -9,6 +9,9 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "gsap": "^3.11.4",
+    "pixi.js": "^7.2.0-beta",
+    "three": "^0.149.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3"
   },

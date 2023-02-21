@@ -1,7 +1,7 @@
 <template>
   <div ref="contentsRef" class="cardContainer">
     <div v-for="card in cards" :key="card.id" class="cardWrapper">
-      <img class="thumbnail" src="@/assets/test.jpg" alt="test" />
+      <img class="thumbnail" :src="card.src" alt="test" />
       <div class="detail">
         <p class="title">{{ card.title }}</p>
         <p>with {{ card.skills }}</p>
@@ -20,7 +20,7 @@ let skewAni;
 
 const skewContent = () => {
   newPos = window.pageYOffset;
-  const speed = (newPos - originPos) * 0.5;
+  const speed = (newPos - originPos) * 5;
 
   contentsRef.value.style.transform = `skewY(${speed}deg)`;
 
@@ -29,8 +29,12 @@ const skewContent = () => {
 };
 
 const cards = [
+  {
+    src: require("@/assets/project/spotlight.png"),
+    title: "SpotLight",
+    skills: "three.js, gsap",
+  },
   { src: "", title: "Wind Up Doll", skills: "gsap, draggable" },
-  { src: "", title: "SpotLight", skills: "three.js, gsap" },
   { src: "", title: "Four Seasons", skills: "gsap, scrollTrigger" },
   { src: "", title: "", skills: "" },
   { src: "", title: "", skills: "" },
@@ -53,16 +57,21 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   transition: transform 1.2s;
+  margin-top: 128px;
   gap: 60px;
   .cardWrapper {
     position: relative;
-    width: 100%;
-    height: 400px;
-    background: darkcyan; // 제거
     border-radius: 2em;
     transition: 0.5s;
     box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.7);
     overflow: hidden;
+    .thumbnail {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s;
+    }
     &:hover > .thumbnail {
       filter: brightness(25%);
       transform: scale(1.05);
@@ -70,16 +79,8 @@ onBeforeUnmount(() => {
     &:hover > .detail {
       opacity: 1;
     }
-    .thumbnail {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: 0.5s;
-      opacity: 0; // 제거
-    }
     .detail {
-      position: relative;
+      position: absolute;
       left: 50%;
       transform: translate(-50%, 0);
       display: inline-flex;
