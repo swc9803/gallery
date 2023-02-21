@@ -1,7 +1,7 @@
 <template>
   <div ref="contentsRef" class="cardContainer">
     <div v-for="card in cards" :key="card.id" class="cardWrapper">
-      <img class="thumbnail" :src="card.src" alt="test" />
+      <img class="thumbnail" :src="card.src" :alt="card.alt" />
       <div class="detail">
         <p class="title">{{ card.title }}</p>
         <p>with {{ card.skills }}</p>
@@ -15,40 +15,49 @@
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
 const contentsRef = ref();
-let originPos, newPos;
-let skewAni;
-
-const skewContent = () => {
-  newPos = window.pageYOffset;
-  const speed = (newPos - originPos) * 5;
-
-  contentsRef.value.style.transform = `skewY(${speed}deg)`;
-
-  originPos = newPos;
-  skewAni = requestAnimationFrame(skewContent);
-};
 
 const cards = [
   {
-    src: require("@/assets/project/spotlight.png"),
+    src: require("@/assets/project/spotlight.webp"),
     title: "SpotLight",
     skills: "three.js, gsap",
+    alt: "spot light",
   },
-  { src: "", title: "Wind Up Doll", skills: "gsap, draggable" },
-  { src: "", title: "Four Seasons", skills: "gsap, scrollTrigger" },
-  { src: "", title: "", skills: "" },
-  { src: "", title: "", skills: "" },
-  { src: "", title: "", skills: "" },
+  {
+    src: require("@/assets/project/doll.webp"),
+    title: "Wind Up Doll",
+    skills: "gsap, draggable",
+    alt: "wind-up doll",
+  },
+  {
+    src: require("@/assets/project/doll.webp"),
+    title: "Four Seasons",
+    skills: "gsap, scrollTrigger",
+    alt: "",
+  },
+  {
+    src: require("@/assets/project/doll.webp"),
+    title: "",
+    skills: "",
+    alt: "",
+  },
+  {
+    src: require("@/assets/project/doll.webp"),
+    title: "",
+    skills: "",
+    alt: "",
+  },
+  {
+    src: require("@/assets/project/doll.webp"),
+    title: "",
+    skills: "",
+    alt: "",
+  },
 ];
 
-onMounted(() => {
-  originPos = window.pageYOffset;
-  skewContent();
-});
+onMounted(() => {});
 
-onBeforeUnmount(() => {
-  cancelAnimationFrame(skewAni);
-});
+onBeforeUnmount(() => {});
 </script>
 
 <style lang="scss" scoped>
@@ -62,8 +71,8 @@ onBeforeUnmount(() => {
   .cardWrapper {
     position: relative;
     border-radius: 2em;
-    transition: 0.5s;
     box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.7);
+    transition: 0.5s;
     overflow: hidden;
     .thumbnail {
       position: relative;
