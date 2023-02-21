@@ -1,6 +1,5 @@
 <template>
   <div ref="contentsRef" class="mapWrapper">
-    <!-- 이미지 포커스 시 스케일, alpha++, 글자 보이게 -->
     <div v-for="map in maps" :key="map.id" :ref="mapRef" class="map">
       <img :src="map.src" :alt="map.alt" />
     </div>
@@ -28,14 +27,10 @@ let skewAni;
 
 const skewContent = () => {
   newPos = window.pageYOffset;
-  const speed = (newPos - originPos) * 10;
-
-  mapArray.value.forEach((map) => {
-    map.style.transform = `rotateX(${speed}deg)`;
-  });
-  //   contentsRef.value.style.transform = `skewY(${speed}deg)`;
+  const speed = Math.max((newPos - originPos) * 5 + 0.1);
+  contentsRef.value.style.transform = `skewY(${speed}deg)`;
   originPos = newPos;
-  skewAni = requestAnimationFrame(skewContent);
+  skewAni = requestIdleCallback(skewContent);
 };
 
 onMounted(() => {
@@ -44,7 +39,7 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  cancelAnimationFrame(skewAni);
+  cancelIdleCallback(skewAni);
 });
 </script>
 
@@ -52,6 +47,7 @@ onBeforeUnmount(() => {
 .mapWrapper {
   position: sticky;
   top: 0;
+  transform: skewY(1deg);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -60,7 +56,7 @@ onBeforeUnmount(() => {
   height: 100vh;
   padding-top: 64px;
   gap: 12px;
-  opacity: 0.5;
+  transition: transform 1s;
   @media (width >= 768px) {
     & {
       gap: 18px;
@@ -72,12 +68,12 @@ onBeforeUnmount(() => {
     backface-visibility: hidden; // 뒷면 추가
     border-radius: 1em;
     box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.7);
-    transition: transform 1s;
     overflow: hidden;
     cursor: pointer;
     @media (width >= 768px) {
       & {
         width: 70%;
+        border-radius: 0.5em;
       }
     }
     img {

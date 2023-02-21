@@ -74,6 +74,11 @@ onBeforeUnmount(() => {});
     box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.7);
     transition: 0.5s;
     overflow: hidden;
+    @media (width >= 768px) {
+      & {
+        border-radius: 0.75em;
+      }
+    }
     .thumbnail {
       position: relative;
       width: 100%;
