@@ -1,13 +1,13 @@
 <template>
   <div ref="contentsRef" class="mapWrapper">
-    <div v-for="map in maps" :key="map.id" :ref="mapRef" class="map">
-      <img :src="map.src" :alt="map.alt" />
+    <div v-for="(map, i) in maps" :key="map.id" :ref="mapRef" class="map">
+      <img @click="moveToCard(i)" :src="map.src" :alt="map.alt" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount, defineEmits } from "vue";
 
 const maps = [
   { src: require("@/assets/project/spotlight.webp"), alt: "spot light" },
@@ -27,10 +27,15 @@ let skewAni;
 
 const skewContent = () => {
   newPos = window.pageYOffset;
-  const speed = Math.max((newPos - originPos) * 5 + 0.1);
+  let speed = (newPos - originPos) * 0.5;
   contentsRef.value.style.transform = `skewY(${speed}deg)`;
   originPos = newPos;
   skewAni = requestIdleCallback(skewContent);
+};
+
+const emit = defineEmits(["move-to-card"]);
+const moveToCard = (i) => {
+  emit("move-to-card", i);
 };
 
 onMounted(() => {
@@ -47,7 +52,7 @@ onBeforeUnmount(() => {
 .mapWrapper {
   position: sticky;
   top: 0;
-  transform: skewY(1deg);
+  //   transform: skewY(1deg);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -56,7 +61,7 @@ onBeforeUnmount(() => {
   height: 100vh;
   padding-top: 64px;
   gap: 12px;
-  transition: transform 1s;
+  transition: transform 0.5s;
   @media (width >= 768px) {
     & {
       gap: 18px;

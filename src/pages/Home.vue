@@ -2,8 +2,8 @@
   <div id="home">
     <Main />
     <div class="card-flex">
-      <Card />
-      <Map />
+      <Card ref="cardRef" />
+      <Map @move-to-card="moveToCard" />
     </div>
     <footer :class="{ 'dark-mode': props.onDarkMode }">
       <p>You Can See All My Code in Here!</p>
@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { defineProps } from "vue";
+import { ref, onMounted, defineProps } from "vue";
 
 import Main from "@/components/Main.vue";
 import Card from "@/components/Card.vue";
@@ -25,7 +25,22 @@ import Map from "@/components/Map.vue";
 
 const props = defineProps({
   onDarkMode: Boolean,
+  cardOffset: Number,
 });
+
+const cardRef = ref();
+
+const moveToCard = (i) => {
+  scrollTo({
+    top:
+      cardRef.value.cardArray[i].offsetTop -
+      64 -
+      (window.innerHeight - 64 - cardRef.value.cardArray[i].offsetHeight) * 0.5,
+    behavior: "smooth",
+  });
+};
+
+onMounted(() => {});
 </script>
 
 <style lang="scss">

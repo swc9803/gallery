@@ -1,6 +1,11 @@
 <template>
   <div ref="contentsRef" class="cardContainer">
-    <div v-for="card in cards" :key="card.id" class="cardWrapper">
+    <div
+      v-for="card in cards"
+      :key="card.id"
+      :ref="cardsRef"
+      class="cardWrapper"
+    >
       <img class="thumbnail" :src="card.src" :alt="card.alt" />
       <div class="detail">
         <p class="title">{{ card.title }}</p>
@@ -12,9 +17,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount, defineExpose } from "vue";
 
 const contentsRef = ref();
+
+const cardArray = ref([]);
+const cardsRef = (el) => cardArray.value.push(el);
+
+defineExpose({
+  cardArray,
+});
 
 const cards = [
   {
