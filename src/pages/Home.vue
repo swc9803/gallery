@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, defineProps } from "vue";
+import { ref, defineProps } from "vue";
 
 import Main from "@/components/Main.vue";
 import Card from "@/components/Card.vue";
@@ -39,8 +39,6 @@ const moveToCard = (i) => {
     behavior: "smooth",
   });
 };
-
-onMounted(() => {});
 </script>
 
 <style lang="scss">

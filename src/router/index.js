@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../pages/Home.vue";
 import SpotLight from "../pages/SpotLight.vue";
 import Doll from "../pages/WindUpDoll.vue";
+import Seasons from "../pages/Seasons.vue";
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: "/doll",
     name: "doll",
     component: Doll,
+  },
+  {
+    path: "/seasons",
+    name: "seasons",
+    component: Seasons,
   },
 ];
 

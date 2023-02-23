@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, defineExpose } from "vue";
+import { ref, defineExpose } from "vue";
 
 const contentsRef = ref();
 
@@ -50,7 +50,7 @@ const cards = [
     title: "Four Seasons",
     skills: "gsap, scrollTrigger",
     alt: "",
-    path: "spotlight",
+    path: "seasons",
   },
   {
     src: require("@/assets/project/doll.webp"),
@@ -74,10 +74,6 @@ const cards = [
     path: "spotlight",
   },
 ];
-
-onMounted(() => {});
-
-onBeforeUnmount(() => {});
 </script>
 
 <style lang="scss" scoped>
