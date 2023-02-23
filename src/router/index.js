@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../pages/Home.vue";
-import About from "../pages/About.vue";
+import SpotLight from "../pages/SpotLight.vue";
+import Doll from "../pages/WindUpDoll.vue";
 
 const routes = [
   {
@@ -9,9 +10,14 @@ const routes = [
     component: Home,
   },
   {
-    path: "/about",
-    name: "about",
-    component: About,
+    path: "/spotlight",
+    name: "spotlight",
+    component: SpotLight,
+  },
+  {
+    path: "/doll",
+    name: "doll",
+    component: Doll,
   },
 ];
 

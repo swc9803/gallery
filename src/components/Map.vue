@@ -60,24 +60,25 @@ onBeforeUnmount(() => {
   width: 20%;
   height: 100vh;
   padding-top: 64px;
-  gap: 12px;
+  gap: 18px;
   transition: transform 0.5s;
-  @media (width >= 768px) {
+  @media (width <= 768px) {
     & {
-      gap: 18px;
+      width: 30%;
+      gap: 25px;
     }
   }
   .map {
-    width: 100%;
+    width: 70%;
     background: blue;
     backface-visibility: hidden; // 뒷면 추가
     border-radius: 1em;
     box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.7);
     overflow: hidden;
     cursor: pointer;
-    @media (width >= 768px) {
+    @media (width <= 768px) {
       & {
-        width: 70%;
+        width: 100%;
         border-radius: 0.5em;
       }
     }

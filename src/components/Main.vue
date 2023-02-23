@@ -3,6 +3,7 @@
     <canvas ref="canvasRef" @mousemove="onMouseMove" @touchmove="onTouchMove" />
   </div>
 </template>
+
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import * as PIXI from "pixi.js";
@@ -19,8 +20,6 @@ const draw = (app) => {
   app.stage.addChild(depthMap);
   displacementFilter = new PIXI.DisplacementFilter(depthMap);
   app.stage.filters = [displacementFilter];
-  onResize();
-  window.addEventListener("resize", onResize);
 };
 
 const onMouseMove = (e) => {
@@ -63,11 +62,15 @@ onMounted(() => {
     resizeTo: canvasRef.value,
   });
   draw(app);
+  onResize();
+  window.addEventListener("resize", onResize);
 });
 
 onBeforeUnmount(() => {
-  app.ticker.stop();
-  app.renderer.destroy();
+  app.stage.filters = null;
+  displacementFilter.destroy();
+  depthMap.destroy();
+  img.destroy();
   window.removeEventListener("resize", onResize);
 });
 </script>
@@ -78,6 +81,11 @@ onBeforeUnmount(() => {
   max-width: 1920px;
   height: calc(var(--vh, 1vh) * 100 - 128px);
   margin-bottom: 128px;
+  @media (width <= 768px) {
+    & {
+      height: calc(var(--vh, 1vh) * 100 - 256px);
+    }
+  }
   canvas {
     position: relative;
     left: 50%;
@@ -86,6 +94,16 @@ onBeforeUnmount(() => {
     height: 100%;
     margin-top: 64px;
     border-radius: 2em;
+    @media (width <= 768px) {
+      & {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: calc(var(--vh, 1vh) * 40);
+        height: calc(var(--vh, 1vh) * 53.5);
+        margin-top: 0;
+      }
+    }
   }
 }
 </style>

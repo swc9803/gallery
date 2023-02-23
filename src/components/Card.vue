@@ -10,7 +10,9 @@
       <div class="detail">
         <p class="title">{{ card.title }}</p>
         <p>with {{ card.skills }}</p>
-        <div class="moveBtn">See This Project</div>
+        <router-link :to="`/${card.path}`">
+          <div class="moveBtn">See This Project</div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -34,36 +36,42 @@ const cards = [
     title: "SpotLight",
     skills: "three.js, gsap",
     alt: "spot light",
+    path: "spotlight",
   },
   {
     src: require("@/assets/project/doll.webp"),
     title: "Wind Up Doll",
     skills: "gsap, draggable",
     alt: "wind-up doll",
+    path: "doll",
   },
   {
     src: require("@/assets/project/doll.webp"),
     title: "Four Seasons",
     skills: "gsap, scrollTrigger",
     alt: "",
+    path: "spotlight",
   },
   {
     src: require("@/assets/project/doll.webp"),
     title: "",
     skills: "",
     alt: "",
+    path: "spotlight",
   },
   {
     src: require("@/assets/project/doll.webp"),
     title: "",
     skills: "",
     alt: "",
+    path: "spotlight",
   },
   {
     src: require("@/assets/project/doll.webp"),
     title: "",
     skills: "",
     alt: "",
+    path: "spotlight",
   },
 ];
 
@@ -86,9 +94,9 @@ onBeforeUnmount(() => {});
     box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.7);
     transition: 0.5s;
     overflow: hidden;
-    @media (width >= 768px) {
+    @media (width <= 768px) {
       & {
-        border-radius: 0.75em;
+        border-radius: 1em;
       }
     }
     .thumbnail {
@@ -116,11 +124,16 @@ onBeforeUnmount(() => {});
       text-align: center;
       opacity: 0;
       transition: 0.5s;
-      gap: 50px;
+      gap: 40px;
       z-index: 1;
       color: white;
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
       .title {
-        font-size: 1.1em;
+        font-size: 1.5em;
+        font-weight: 700;
       }
       .moveBtn {
         padding: 10px;
