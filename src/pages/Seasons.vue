@@ -24,6 +24,7 @@ import Winter from "@/components/weather/winter/Winter";
   left: 0;
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
+  background: white;
 }
 .svg {
   position: fixed;

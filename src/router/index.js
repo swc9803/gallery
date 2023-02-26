@@ -3,6 +3,7 @@ import Home from "../pages/Home.vue";
 import SpotLight from "../pages/SpotLight.vue";
 import Doll from "../pages/WindUpDoll.vue";
 import Seasons from "../pages/Seasons.vue";
+import Bed from "../pages/Bed.vue";
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: "/seasons",
     name: "seasons",
     component: Seasons,
+  },
+  {
+    path: "/bed",
+    name: "bed",
+    component: Bed,
   },
 ];
 

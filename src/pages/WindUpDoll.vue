@@ -270,7 +270,7 @@
           </defs>
         </svg>
       </div>
-      <div class="welcome">Loves and Questions are welcome!</div>
+      <div class="welcome">Please come to my GitHub!</div>
     </div>
   </div>
 </template>
