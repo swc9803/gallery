@@ -353,9 +353,9 @@ onBeforeUnmount(() => {
   }
   h2 {
     position: fixed;
-    top: 10%;
+    top: 15%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -15%);
     width: 100%;
     color: white;
     text-align: center;

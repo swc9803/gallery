@@ -3,6 +3,7 @@ import Home from "../pages/Home.vue";
 import SpotLight from "../pages/SpotLight.vue";
 import Doll from "../pages/WindUpDoll.vue";
 import Seasons from "../pages/Seasons.vue";
+import Slider from "../pages/Slider.vue";
 import Bed from "../pages/Bed.vue";
 
 const routes = [
@@ -25,6 +26,11 @@ const routes = [
     path: "/seasons",
     name: "seasons",
     component: Seasons,
+  },
+  {
+    path: "/slider",
+    name: "slider",
+    component: Slider,
   },
   {
     path: "/bed",

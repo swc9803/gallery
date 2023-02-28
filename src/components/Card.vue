@@ -53,18 +53,18 @@ const cards = [
     path: "seasons",
   },
   {
+    src: require("@/assets/project/slider.webp"),
+    title: "3D Slider",
+    skills: "gsap, draggable",
+    alt: "3d slider",
+    path: "slider",
+  },
+  {
     src: require("@/assets/project/bed.webp"),
     title: "It's dangerous beyond the blankets",
     skills: "gsap",
     alt: "bed",
     path: "bed",
-  },
-  {
-    src: require("@/assets/project/doll.webp"),
-    title: "salon슬라이더",
-    skills: "",
-    alt: "",
-    path: "spotlight",
   },
   {
     src: require("@/assets/project/doll.webp"),
