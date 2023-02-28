@@ -12,8 +12,8 @@ import { ref, onMounted, onBeforeUnmount, defineEmits } from "vue";
 const maps = [
   { src: require("@/assets/project/spotlight.webp"), alt: "spot light" },
   { src: require("@/assets/project/doll.webp"), alt: "wind-up doll" },
-  { src: require("@/assets/project/doll.webp"), alt: "" },
-  { src: require("@/assets/project/doll.webp"), alt: "" },
+  { src: require("@/assets/project/seasons.webp"), alt: "four seasons" },
+  { src: require("@/assets/project/bed.webp"), alt: "bed" },
   { src: require("@/assets/project/doll.webp"), alt: "" },
   { src: require("@/assets/project/doll.webp"), alt: "" },
 ];
@@ -26,6 +26,7 @@ let originPos, newPos;
 let skewAni;
 
 const skewContent = () => {
+  contentsRef.value.style.transform = `skewY(0deg)`;
   newPos = window.pageYOffset;
   let speed = (newPos - originPos) * 0.5;
   contentsRef.value.style.transform = `skewY(${speed}deg)`;

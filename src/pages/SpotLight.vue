@@ -303,24 +303,31 @@ onBeforeUnmount(() => {
   floor.geometry.dispose();
   floor.material.dispose();
 
-  model1.scene.traverse(function (node) {
-    if (node.isMesh) {
-      node.geometry.dispose();
-      node.material.dispose();
-    }
-  });
-  model2.scene.traverse(function (node) {
-    if (node.isMesh) {
-      node.geometry.dispose();
-      node.material.dispose();
-    }
-  });
-  model3.scene.traverse(function (node) {
-    if (node.isMesh) {
-      node.geometry.dispose();
-      node.material.dispose();
-    }
-  });
+  if (model1) {
+    model1.scene.traverse(function (node) {
+      if (node.isMesh) {
+        node.geometry.dispose();
+        node.material.dispose();
+      }
+    });
+  }
+  if (model2) {
+    model2.scene.traverse(function (node) {
+      if (node.isMesh) {
+        node.geometry.dispose();
+        node.material.dispose();
+      }
+    });
+  }
+  if (model3) {
+    model3.scene.traverse(function (node) {
+      if (node.isMesh) {
+        node.geometry.dispose();
+        node.material.dispose();
+      }
+    });
+  }
+
   window.removeEventListener("resize", onResize);
 });
 </script>

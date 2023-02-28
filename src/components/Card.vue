@@ -46,14 +46,14 @@ const cards = [
     path: "doll",
   },
   {
-    src: require("@/assets/project/doll.webp"),
+    src: require("@/assets/project/seasons.webp"),
     title: "Four Seasons",
     skills: "gsap, scrollTrigger",
     alt: "four seasons",
     path: "seasons",
   },
   {
-    src: require("@/assets/project/doll.webp"),
+    src: require("@/assets/project/bed.webp"),
     title: "It's dangerous beyond the blankets",
     skills: "gsap",
     alt: "bed",
@@ -61,14 +61,14 @@ const cards = [
   },
   {
     src: require("@/assets/project/doll.webp"),
-    title: "",
+    title: "salon슬라이더",
     skills: "",
     alt: "",
     path: "spotlight",
   },
   {
     src: require("@/assets/project/doll.webp"),
-    title: "",
+    title: "sucking",
     skills: "",
     alt: "",
     path: "spotlight",
