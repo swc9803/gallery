@@ -12,8 +12,8 @@ PIXI.settings.RENDER_OPTIONS.hello;
 let app;
 let displacementFilter;
 const canvasRef = ref();
-const img = PIXI.Sprite.from(require("@/assets/origin.png"));
-const depthMap = PIXI.Sprite.from(require("@/assets/depthMap.png"));
+const img = PIXI.Sprite.from(require("@/assets/origin.webp"));
+const depthMap = PIXI.Sprite.from(require("@/assets/depthMap.webp"));
 
 const draw = (app) => {
   app.stage.addChild(img);
@@ -92,7 +92,7 @@ onBeforeUnmount(() => {
     transform: translate(-50%, 0);
     width: calc(75vh - 96px);
     height: 100%;
-    margin-top: 64px;
+    margin-top: 96px;
     border-radius: 2em;
     @media (width <= 768px) {
       & {

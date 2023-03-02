@@ -67,11 +67,11 @@ const cards = [
     path: "bed",
   },
   {
-    src: require("@/assets/project/doll.webp"),
-    title: "sucking",
-    skills: "",
-    alt: "",
-    path: "spotlight",
+    src: require("@/assets/project/sauce.webp"),
+    title: "부먹",
+    skills: "canvas, svg filter",
+    alt: "부먹",
+    path: "sauce",
   },
   {
     src: require("@/assets/project/doll.webp"),

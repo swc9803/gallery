@@ -15,7 +15,7 @@ const maps = [
   { src: require("@/assets/project/seasons.webp"), alt: "four seasons" },
   { src: require("@/assets/project/slider.webp"), alt: "3d slider" },
   { src: require("@/assets/project/bed.webp"), alt: "bed" },
-  { src: require("@/assets/project/doll.webp"), alt: "" },
+  { src: require("@/assets/project/sauce.webp"), alt: "sauce" },
 ];
 
 const mapArray = ref([]);
@@ -28,8 +28,10 @@ let skewAni;
 const skewContent = () => {
   contentsRef.value.style.transform = `skewY(0deg)`;
   newPos = window.pageYOffset;
-  let speed = (newPos - originPos) * 0.5;
-  contentsRef.value.style.transform = `skewY(${speed}deg)`;
+  let speed = (newPos - originPos) * 2;
+  if (speed <= 200 && speed >= -200) {
+    contentsRef.value.style.transform = `skewY(${speed}deg)`;
+  }
   originPos = newPos;
   skewAni = requestIdleCallback(skewContent);
 };

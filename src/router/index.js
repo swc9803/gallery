@@ -5,6 +5,7 @@ import Doll from "../pages/WindUpDoll.vue";
 import Seasons from "../pages/Seasons.vue";
 import Slider from "../pages/Slider.vue";
 import Bed from "../pages/Bed.vue";
+import Sauce from "../pages/Sauce.vue";
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: "/bed",
     name: "bed",
     component: Bed,
+  },
+  {
+    path: "/sauce",
+    name: "sauce",
+    component: Sauce,
   },
 ];
 
