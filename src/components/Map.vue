@@ -22,18 +22,35 @@ const mapArray = ref([]);
 const mapRef = (el) => mapArray.value.push(el);
 
 const contentsRef = ref();
-let originPos, newPos;
 let skewAni;
+let originPos,
+  newPos = 0;
+let speed = 0;
 
 const skewContent = () => {
-  contentsRef.value.style.transform = `skewY(0deg)`;
-  newPos = window.pageYOffset;
-  let speed = (newPos - originPos) * 2;
-  if (speed <= 200 && speed >= -200) {
+  if (Math.abs(speed) > 2) {
+    speed += speed > 0 ? -2 : 2;
+  } else {
+    speed = 0;
+  }
+
+  speed = speed > 100 ? 0 : speed;
+
+  if (Math.abs(speed) < 100) {
     contentsRef.value.style.transform = `skewY(${speed}deg)`;
   }
+
   originPos = newPos;
   skewAni = requestIdleCallback(skewContent);
+};
+
+const onScroll = () => {
+  newPos = window.pageYOffset;
+  if (matchMedia("(max-width: 480px)").matches) {
+    speed = (newPos - originPos) * 3;
+  } else {
+    speed = (newPos - originPos) * 0.3;
+  }
 };
 
 const emit = defineEmits(["move-to-card"]);
@@ -44,9 +61,12 @@ const moveToCard = (i) => {
 onMounted(() => {
   originPos = window.pageYOffset;
   skewContent();
+
+  window.addEventListener("scroll", onScroll);
 });
 
 onBeforeUnmount(() => {
+  window.removeEventListener("scroll", onScroll);
   cancelIdleCallback(skewAni);
 });
 </script>

@@ -3,6 +3,7 @@
     <p>
       ⚠️Because it uses svg filter, animation breaks can occur on large screens
     </p>
+    <div class="retry" @click="retry">retry</div>
     <img />
     <canvas ref="canvasRef" />
     <svg>
@@ -27,7 +28,9 @@
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
 const canvasRef = ref();
-let slimeAnimation;
+let sauceAnimation;
+let ctx;
+let effect;
 
 class Ball {
   constructor(effect) {
@@ -48,7 +51,7 @@ class Ball {
       this.speedY = Math.random() * 1 + 1;
     }
 
-    if (this.y > this.radius * 2) {
+    if (this.y > this.radius) {
       this.vy += this.gravity;
       this.speedY += this.vy;
     }
@@ -57,15 +60,13 @@ class Ball {
       this.y += this.speedY;
     } else {
       ballArray.forEach((ball) => {
-        if (ball !== this) {
-          const dx = this.x - ball.x;
-          const dy = this.y - ball.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const minDist = this.radius / 2 + ball.radius / 2;
-          if (dist < minDist) {
-            this.speedY = this.radius * 0.1;
-            this.x += this.speedY * Math.sign(dx);
-          }
+        const dx = this.x - ball.x;
+        const dy = this.y - ball.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const minDist = this.radius / 2 + ball.radius / 2;
+        if (dist < minDist) {
+          this.speedY = this.radius * 0.1;
+          this.x += this.speedY * Math.sign(dx);
         }
       });
       if (this.scaleY >= 0.5) {
@@ -107,7 +108,7 @@ class BallsEffect {
     this.ballsArray.forEach((ball, index, arr) => ball.update(arr));
   }
   draw(context) {
-    ctx.value.fillStyle = "#FFC107";
+    ctx.fillStyle = "#b47d05";
     this.ballsArray.forEach((ball) => ball.draw(context));
   }
   resize(newWidth, newHeight) {
@@ -117,39 +118,45 @@ class BallsEffect {
   }
 }
 
-const ctx = ref();
-const effect = ref();
-
 function animate() {
-  ctx.value.clearRect(0, 0, canvasRef.value.width, canvasRef.value.height);
-  effect.value.update();
-  effect.value.draw(ctx.value);
-  slimeAnimation = requestAnimationFrame(animate);
+  ctx.clearRect(0, 0, canvasRef.value.width, canvasRef.value.height);
+  effect.update();
+  effect.draw(ctx);
+  sauceAnimation = requestAnimationFrame(animate);
 }
 
 const onResize = () => {
   canvasRef.value.width = window.innerWidth;
   canvasRef.value.height = window.innerHeight;
-  effect.value = new BallsEffect(canvasRef.value.width, canvasRef.value.height);
-  effect.value.resize(canvasRef.value.width, canvasRef.value.height);
+  effect = new BallsEffect(canvasRef.value.width, canvasRef.value.height);
+  effect.resize(canvasRef.value.width, canvasRef.value.height);
   if (matchMedia("(max-width: 768px)").matches) {
-    effect.value.init(20);
+    effect.init(20);
   } else {
-    effect.value.init(30);
+    effect.init(30);
+  }
+};
+
+const retry = () => {
+  effect = new BallsEffect(canvasRef.value.width, canvasRef.value.height);
+  effect.resize(canvasRef.value.width, canvasRef.value.height);
+  if (matchMedia("(max-width: 768px)").matches) {
+    effect.init(20);
+  } else {
+    effect.init(30);
   }
 };
 
 onMounted(() => {
-  ctx.value = canvasRef.value.getContext("2d");
+  ctx = canvasRef.value.getContext("2d");
   onResize();
-
   animate();
 
   window.addEventListener("resize", onResize);
 });
 
 onBeforeUnmount(() => {
-  cancelAnimationFrame(slimeAnimation);
+  cancelAnimationFrame(sauceAnimation);
   window.removeEventListener("resize", onResize);
 });
 </script>
@@ -159,7 +166,7 @@ onBeforeUnmount(() => {
   position: relative;
   width: 100%;
   height: calc(var(--vh) * 100);
-  background: white;
+  background: #ffffff;
   overflow: hidden;
   p {
     position: absolute;
@@ -167,7 +174,25 @@ onBeforeUnmount(() => {
     left: 50%;
     transform: translate(-50%, -12%);
     color: red;
+    text-align: center;
     font-size: 1.2em;
+  }
+  .retry {
+    position: fixed;
+    top: 50%;
+    right: 10%;
+    transform: translate(0, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    background: rgb(200, 255, 0);
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+    border-radius: 50%;
+    z-index: 1;
+    cursor: pointer;
   }
   img {
     position: absolute;

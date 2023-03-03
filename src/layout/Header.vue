@@ -8,7 +8,10 @@
         </div>
         <div class="btn" :class="{ 'dark-mode': props.onDarkMode }">Github</div>
       </div>
-      <div class="logo" :class="{ 'dark-mode': props.onDarkMode }">Sung</div>
+
+      <router-link to="/">
+        <div class="logo" :class="{ 'dark-mode': props.onDarkMode }">Sung</div>
+      </router-link>
       <div class="nav-flex">
         <div class="btn" :class="{ 'dark-mode': props.onDarkMode }">
           portfolio
