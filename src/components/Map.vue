@@ -7,7 +7,13 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, defineEmits } from "vue";
+import {
+  ref,
+  onMounted,
+  onBeforeUnmount,
+  defineEmits,
+  defineExpose,
+} from "vue";
 
 const maps = [
   { src: require("@/assets/project/spotlight.webp"), alt: "spot light" },
@@ -20,6 +26,10 @@ const maps = [
 
 const mapArray = ref([]);
 const mapRef = (el) => mapArray.value.push(el);
+
+defineExpose({
+  mapArray,
+});
 
 const contentsRef = ref();
 let skewAni;
@@ -47,9 +57,9 @@ const skewContent = () => {
 const onScroll = () => {
   newPos = window.pageYOffset;
   if (matchMedia("(max-width: 480px)").matches) {
-    speed = (newPos - originPos) * 3;
+    speed = (newPos - originPos) * 1.5;
   } else {
-    speed = (newPos - originPos) * 0.3;
+    speed = (newPos - originPos) * 0.15;
   }
 };
 
@@ -93,12 +103,11 @@ onBeforeUnmount(() => {
   }
   .map {
     width: 70%;
-    background: blue;
-    backface-visibility: hidden; // 뒷면 추가
     border-radius: 1em;
     box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.7);
     overflow: hidden;
     cursor: pointer;
+    transition: 0.4s ease-out;
     @media (width <= 768px) {
       & {
         width: 100%;

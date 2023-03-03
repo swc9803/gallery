@@ -74,11 +74,11 @@ const cards = [
     path: "sauce",
   },
   {
-    src: require("@/assets/project/doll.webp"),
-    title: "곧 업데이트 될 프로젝트",
-    skills: "",
-    alt: "",
-    path: "spotlight",
+    src: require("@/assets/project/later.webp"),
+    title: "Coming soon",
+    skills: "?",
+    alt: "coming soon",
+    path: "",
   },
 ];
 </script>

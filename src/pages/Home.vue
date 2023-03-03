@@ -3,7 +3,7 @@
     <Main />
     <div class="card-flex">
       <Card ref="cardRef" />
-      <Map @move-to-card="moveToCard" />
+      <Map @move-to-card="moveToCard" ref="mapRef" />
     </div>
     <footer :class="{ 'dark-mode': props.onDarkMode }">
       <p>You Can See All My Code in Here!</p>
@@ -17,8 +17,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from "vue";
-
+import { ref, onMounted, onBeforeUnmount, defineProps } from "vue";
 import Main from "@/components/Main.vue";
 import Card from "@/components/Card.vue";
 import Map from "@/components/Map.vue";
@@ -29,6 +28,8 @@ const props = defineProps({
 });
 
 const cardRef = ref();
+const mapRef = ref();
+let observer;
 
 const moveToCard = (i) => {
   scrollTo({
@@ -39,6 +40,34 @@ const moveToCard = (i) => {
     behavior: "smooth",
   });
 };
+
+onMounted(() => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const index = cardRef.value.cardArray.indexOf(entry.target);
+        if (index < mapRef.value.mapArray.length) {
+          mapRef.value.mapArray[index].style.opacity = entry.isIntersecting
+            ? 1
+            : 0.5;
+          mapRef.value.mapArray[index].style.filter = entry.isIntersecting
+            ? "grayscale(0)"
+            : "grayscale(90%)";
+        }
+      });
+    },
+    {
+      threshold: 0.8,
+    }
+  );
+  cardRef.value.cardArray.forEach((card) => {
+    observer.observe(card);
+  });
+});
+
+onBeforeUnmount(() => {
+  observer.disconnect();
+});
 </script>
 
 <style lang="scss">
