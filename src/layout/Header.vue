@@ -8,7 +8,6 @@
         </div>
         <div class="btn" :class="{ 'dark-mode': props.onDarkMode }">Github</div>
       </div>
-
       <router-link to="/">
         <div class="logo" :class="{ 'dark-mode': props.onDarkMode }">Sung</div>
       </router-link>
@@ -51,17 +50,17 @@ header {
   padding: 0 60px;
   backdrop-filter: blur(8px);
   z-index: 9;
-  @media screen and (max-width: 1024px) {
+  @media (width <= 1024px) {
     & {
       padding: 0 48px;
     }
   }
-  @media screen and (max-width: 768px) {
+  @media (width <= 768px) {
     & {
       padding: 0 36px;
     }
   }
-  @media screen and (max-width: 480px) {
+  @media (width <= 480px) {
     & {
       padding: 0 24px;
     }
@@ -87,7 +86,7 @@ header {
     height: 100%;
     .logo {
       transition: 0.5s;
-      @media screen and (max-width: 768px) {
+      @media (width <= 768px) {
         & {
           order: -1;
         }
@@ -134,7 +133,7 @@ header {
     .nav-flex {
       display: flex;
       gap: 12px;
-      @media screen and (max-width: 768px) {
+      @media (width <= 768px) {
         & {
           display: inline-flex;
           position: absolute;
