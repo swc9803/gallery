@@ -1,35 +1,50 @@
 <template>
-  <header>
+  <header ref="headerRef">
     <div class="navColor" :class="{ 'dark-mode': props.onDarkMode }" />
     <nav>
-      <div class="nav-flex">
-        <div class="btn" :class="{ 'dark-mode': props.onDarkMode }">
-          CodePen
+      <div ref="navFlexRef1" class="nav-flex">
+        <div
+          @click="moveToPort"
+          class="btn"
+          :class="{ 'dark-mode': props.onDarkMode }"
+        >
+          Portfolio
         </div>
-        <div class="btn" :class="{ 'dark-mode': props.onDarkMode }">Github</div>
+        <div
+          @click="moveToGit"
+          class="btn"
+          :class="{ 'dark-mode': props.onDarkMode }"
+        >
+          Github
+        </div>
       </div>
       <router-link to="/">
         <div class="logo" :class="{ 'dark-mode': props.onDarkMode }">Sung</div>
       </router-link>
-      <div class="nav-flex">
-        <div class="btn" :class="{ 'dark-mode': props.onDarkMode }">
-          portfolio
+      <div ref="navFlexRef2" class="nav-flex">
+        <div
+          @click="moveToCode"
+          class="btn"
+          :class="{ 'dark-mode': props.onDarkMode }"
+        >
+          CodePen
         </div>
         <div
           class="btn"
           :class="{ 'dark-mode': props.onDarkMode }"
           @click="toggleDarkMode"
         >
-          {{ props.onDarkMode ? "dark-mode" : "light-mode" }}
-          <!-- 글자 크기 맞추기 -->
+          {{ props.onDarkMode ? "🌙" : "☀️" }}
         </div>
       </div>
+      <div @click="toggle" class="toggleBtn">🍔</div>
     </nav>
   </header>
 </template>
 
 <script setup>
-import { defineEmits, defineProps } from "vue";
+import { ref, onMounted, onBeforeUnmount, defineEmits, defineProps } from "vue";
+import gsap from "gsap";
 
 const emit = defineEmits(["change-theme"]);
 const props = defineProps({
@@ -40,6 +55,86 @@ const toggleDarkMode = () => {
   emit("change-theme");
   // rotate+scale-, rotate-scale+ 해, 달 변경
 };
+
+const headerRef = ref();
+const navFlexRef1 = ref();
+const navFlexRef2 = ref();
+const toggleOn = ref(false);
+
+const moveToPort = () => {
+  open("https://newsungpf.firebaseapp.com/");
+};
+const moveToGit = () => {
+  open("https://github.com/swc9803");
+};
+const moveToCode = () => {
+  open("https://codepen.io/swc9803");
+};
+
+const toggle = () => {
+  toggleOn.value = !toggleOn.value;
+  onResize();
+};
+
+const onResize = () => {
+  if (!matchMedia("(max-width: 768px)").matches) {
+    // pc
+    gsap.set(headerRef.value, {
+      height: 64,
+    });
+    gsap.set([navFlexRef1.value, navFlexRef2.value], {
+      y: 0,
+    });
+  } else {
+    // mobile
+    if (toggleOn.value) {
+      //on
+      gsap.to(headerRef.value, {
+        height: 172,
+        duration: 0.5,
+        ease: "none",
+      });
+      gsap.fromTo(
+        [navFlexRef1.value, navFlexRef2.value],
+        {
+          y: -172,
+        },
+        {
+          y: 0,
+          duration: 0.5,
+          ease: "none",
+        }
+      );
+    } else {
+      // off
+      gsap.to(headerRef.value, {
+        height: 64,
+        duration: 0.5,
+        ease: "none",
+      });
+      gsap.fromTo(
+        [navFlexRef1.value, navFlexRef2.value],
+        {
+          y: 0,
+        },
+        {
+          y: -172,
+          duration: 0.5,
+          ease: "none",
+        }
+      );
+    }
+  }
+};
+
+onMounted(() => {
+  onResize();
+  window.addEventListener("resize", onResize);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", onResize);
+});
 </script>
 
 <style lang="scss" scoped>
@@ -69,7 +164,7 @@ header {
     position: absolute;
     left: 0;
     width: 100%;
-    height: 64px;
+    height: 100%;
     background: white;
     opacity: 0.7;
     transition: 0.5s;
@@ -84,7 +179,13 @@ header {
     justify-content: space-between;
     align-items: center;
     height: 100%;
+    @media (width <= 768px) {
+      & {
+        align-items: stretch;
+      }
+    }
     .logo {
+      line-height: 50px;
       transition: 0.5s;
       @media (width <= 768px) {
         & {
@@ -131,21 +232,33 @@ header {
       }
     }
     .nav-flex {
-      display: flex;
+      position: relative;
+      display: inline-flex;
       gap: 12px;
       @media (width <= 768px) {
         & {
-          display: inline-flex;
           position: absolute;
+          top: 16px;
           left: 50%;
           transform: translate(-50%, 0);
           flex-direction: column;
           gap: 12px;
           text-align: center;
-          &:nth-child(1) {
-            // position: relative;
-            margin-top: 170px;
+          order: 1;
+          &:nth-child(3) {
+            top: 92px;
           }
+        }
+      }
+    }
+    .toggleBtn {
+      display: none;
+      line-height: 50px;
+      order: 2;
+      cursor: pointer;
+      @media (width <= 768px) {
+        & {
+          display: block;
         }
       }
     }
