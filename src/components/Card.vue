@@ -125,11 +125,16 @@ const cards = [
       justify-content: center;
       height: 100%;
       text-align: center;
+      color: white;
+      gap: 40px;
       opacity: 0;
       transition: 0.5s;
-      gap: 40px;
       z-index: 1;
-      color: white;
+      @media (max-width: 768px) {
+        & {
+          gap: 10px;
+        }
+      }
       a {
         text-decoration: none;
         color: inherit;
@@ -137,6 +142,11 @@ const cards = [
       .title {
         font-size: 1.5em;
         font-weight: 700;
+        @media (max-width: 768px) {
+          & {
+            font-size: 1em;
+          }
+        }
       }
       .moveBtn {
         padding: 10px;
@@ -151,6 +161,11 @@ const cards = [
         border: 1px solid white;
         transition: 0.7s ease-out;
         cursor: pointer;
+        @media (max-width: 768px) {
+          & {
+            padding: 3px;
+          }
+        }
         &:hover {
           background-position: 100%;
           color: black;

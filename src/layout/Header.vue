@@ -120,6 +120,7 @@ const toggle = () => {
 };
 
 const onResize = () => {
+  gsap.killTweensOf([headerRef.value, navFlexRef1.value, navFlexRef2.value]);
   if (!matchMedia("(max-width: 768px)").matches) {
     // pc
     gsap.set(headerRef.value, {
@@ -136,7 +137,7 @@ const onResize = () => {
       xPercent: -50,
     });
     if (toggleOn.value) {
-      //on
+      // on
       gsap.to(headerRef.value, {
         height: 172,
         duration: 0.5,
@@ -146,11 +147,9 @@ const onResize = () => {
         [navFlexRef1.value, navFlexRef2.value],
         {
           y: -172,
-          //   xPercent: -50,
         },
         {
           y: 0,
-          //   xPercent: -50,
           duration: 0.5,
           ease: "none",
         }
@@ -166,11 +165,9 @@ const onResize = () => {
         [navFlexRef1.value, navFlexRef2.value],
         {
           y: 0,
-          //   xPercent: -50,
         },
         {
           y: -172,
-          //   xPercent: -50,
           duration: 0.5,
           ease: "none",
         }
@@ -180,7 +177,11 @@ const onResize = () => {
 };
 
 onMounted(() => {
-  onResize();
+  if (matchMedia("(max-width: 768px)").matches) {
+    gsap.set([navFlexRef1.value, navFlexRef2.value], {
+      y: -172,
+    });
+  }
   window.addEventListener("resize", onResize);
 });
 
