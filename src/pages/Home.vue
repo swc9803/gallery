@@ -60,9 +60,20 @@ const moveToCard = (i) => {
 };
 
 const mediaQuery480 = window.matchMedia("(max-width: 480px)");
-let threshold = mediaQuery480.matches ? 0.6 : 1;
+const mediaQuery1280 = window.matchMedia("(max-width: 1280px)");
+let threshold = 1;
+const onResize = () => {
+  if (mediaQuery480.matches) {
+    threshold = 0.6;
+  } else if (mediaQuery1280.matches) {
+    threshold = 1;
+  } else {
+    threshold = 0.8;
+  }
+};
 
 onMounted(() => {
+  onResize();
   observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -87,10 +98,17 @@ onMounted(() => {
   cardRef.value.cardArray.forEach((card) => {
     observer.observe(card);
   });
+
+  setInterval(() => {
+    console.log(threshold);
+  }, 1000);
+
+  window.addEventListener("resize", onResize);
 });
 
 onBeforeUnmount(() => {
   observer.disconnect();
+  window.removeEventListener("resize", onResize);
 });
 </script>
 
