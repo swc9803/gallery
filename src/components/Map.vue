@@ -95,7 +95,7 @@ onBeforeUnmount(() => {
   padding-top: 64px;
   gap: 18px;
   transition: transform 0.5s;
-  @media (width <= 768px) {
+  @media (max-width: 768px) {
     & {
       width: 30%;
       gap: 25px;
@@ -108,7 +108,7 @@ onBeforeUnmount(() => {
     overflow: hidden;
     cursor: pointer;
     transition: 0.4s ease-out;
-    @media (width <= 768px) {
+    @media (max-width: 768px) {
       & {
         width: 100%;
         border-radius: 0.5em;

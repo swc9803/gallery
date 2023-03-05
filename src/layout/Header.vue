@@ -34,10 +34,21 @@
           :class="{ 'dark-mode': props.onDarkMode }"
           @click="toggleDarkMode"
         >
-          {{ props.onDarkMode ? "🌙" : "☀️" }}
+          <div ref="emojiRef" class="sun">
+            {{ props.onDarkMode ? "🌙" : "☀️" }}
+          </div>
+          {{ props.onDarkMode ? "#000" : "#FFF" }}
         </div>
       </div>
-      <div @click="toggle" class="toggleBtn">🍔</div>
+      <div class="toggleBtn">
+        <div
+          @click="toggle"
+          :class="{ 'dark-mode': props.onDarkMode }"
+          class="btn"
+        >
+          Menu
+        </div>
+      </div>
     </nav>
   </header>
 </template>
@@ -46,20 +57,52 @@
 import { ref, onMounted, onBeforeUnmount, defineEmits, defineProps } from "vue";
 import gsap from "gsap";
 
+const headerRef = ref();
+const navFlexRef1 = ref();
+const navFlexRef2 = ref();
+const emojiRef = ref();
+const toggleOn = ref(false);
+
 const emit = defineEmits(["change-theme"]);
 const props = defineProps({
   onDarkMode: Boolean,
 });
 
 const toggleDarkMode = () => {
-  emit("change-theme");
-  // rotate+scale-, rotate-scale+ 해, 달 변경
+  if (props.onDarkMode) {
+    gsap.to(emojiRef.value, {
+      scale: 0,
+      rotate: "+=360",
+      duration: 0.3,
+      ease: "none",
+      onComplete: () => {
+        emit("change-theme");
+        gsap.to(emojiRef.value, {
+          scale: 1,
+          rotate: "+=360",
+          duration: 0.3,
+          ease: "none",
+        });
+      },
+    });
+  } else {
+    gsap.to(emojiRef.value, {
+      scale: 0,
+      rotate: "+=360",
+      duration: 0.3,
+      ease: "none",
+      onComplete: () => {
+        emit("change-theme");
+        gsap.to(emojiRef.value, {
+          scale: 1,
+          rotate: "+=360",
+          duration: 0.3,
+          ease: "none",
+        });
+      },
+    });
+  }
 };
-
-const headerRef = ref();
-const navFlexRef1 = ref();
-const navFlexRef2 = ref();
-const toggleOn = ref(false);
 
 const moveToPort = () => {
   open("https://newsungpf.firebaseapp.com/");
@@ -84,9 +127,14 @@ const onResize = () => {
     });
     gsap.set([navFlexRef1.value, navFlexRef2.value], {
       y: 0,
+      xPercent: 0,
     });
   } else {
     // mobile
+    gsap.set([navFlexRef1.value, navFlexRef2.value], {
+      y: 0,
+      xPercent: -50,
+    });
     if (toggleOn.value) {
       //on
       gsap.to(headerRef.value, {
@@ -98,9 +146,11 @@ const onResize = () => {
         [navFlexRef1.value, navFlexRef2.value],
         {
           y: -172,
+          //   xPercent: -50,
         },
         {
           y: 0,
+          //   xPercent: -50,
           duration: 0.5,
           ease: "none",
         }
@@ -116,9 +166,11 @@ const onResize = () => {
         [navFlexRef1.value, navFlexRef2.value],
         {
           y: 0,
+          //   xPercent: -50,
         },
         {
           y: -172,
+          //   xPercent: -50,
           duration: 0.5,
           ease: "none",
         }
@@ -133,7 +185,7 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener("scroll", onResize);
+  window.removeEventListener("resize", onResize);
 });
 </script>
 
@@ -145,17 +197,17 @@ header {
   padding: 0 60px;
   backdrop-filter: blur(8px);
   z-index: 9;
-  @media (width <= 1024px) {
+  @media (max-width: 1024px) {
     & {
       padding: 0 48px;
     }
   }
-  @media (width <= 768px) {
+  @media (max-width: 768px) {
     & {
       padding: 0 36px;
     }
   }
-  @media (width <= 480px) {
+  @media (max-width: 480px) {
     & {
       padding: 0 24px;
     }
@@ -179,7 +231,7 @@ header {
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    @media (width <= 768px) {
+    @media (max-width: 768px) {
       & {
         align-items: stretch;
       }
@@ -187,7 +239,8 @@ header {
     .logo {
       line-height: 50px;
       transition: 0.5s;
-      @media (width <= 768px) {
+      font-family: "Monaco";
+      @media (max-width: 768px) {
         & {
           order: -1;
         }
@@ -196,51 +249,16 @@ header {
         color: white;
       }
     }
-    .btn {
-      padding: 3px 12px;
-      border: 1px solid black;
-      border-radius: 10em;
-      background: linear-gradient(
-        270deg,
-        rgba(0, 0, 0, 0.8),
-        rgba(0, 0, 0, 0.8),
-        rgba(255, 255, 255, 0),
-        rgba(255, 255, 255, 0)
-      );
-      background-size: 300% 300%;
-      transition: 0.3s ease-out;
-      cursor: pointer;
-      &:hover {
-        background-position: 100%;
-        color: white;
-      }
-      &.dark-mode {
-        border: 1px solid white;
-        color: white;
-        background: linear-gradient(
-          270deg,
-          rgba(255, 255, 255, 0.8),
-          rgba(255, 255, 255, 0.8),
-          rgba(255, 255, 255, 0),
-          rgba(255, 255, 255, 0)
-        );
-        background-size: 300% 300%;
-        &:hover {
-          background-position: 100%;
-          color: black;
-        }
-      }
-    }
     .nav-flex {
       position: relative;
       display: inline-flex;
       gap: 12px;
-      @media (width <= 768px) {
+      @media (max-width: 768px) {
         & {
           position: absolute;
           top: 16px;
           left: 50%;
-          transform: translate(-50%, 0);
+          transform: translate3d(-50%, 0, 0);
           flex-direction: column;
           gap: 12px;
           text-align: center;
@@ -252,11 +270,11 @@ header {
       }
     }
     .toggleBtn {
+      position: relative;
+      margin-top: 12px;
       display: none;
-      line-height: 50px;
       order: 2;
-      cursor: pointer;
-      @media (width <= 768px) {
+      @media (max-width: 768px) {
         & {
           display: block;
         }
@@ -267,5 +285,9 @@ header {
       text-decoration: none;
     }
   }
+}
+.sun {
+  display: inline-block;
+  transform-origin: center center;
 }
 </style>

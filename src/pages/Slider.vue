@@ -141,10 +141,10 @@ onBeforeUnmount(() => {
     transform: translate(-50%, 0);
     width: 40%;
     opacity: 0.5;
-    @media (width <= 1280px) {
+    @media (max-width: 1280px) {
       width: 80%;
     }
-    @media (width <= 768px) {
+    @media (max-width: 768px) {
       width: 100%;
     }
   }
@@ -157,7 +157,7 @@ onBeforeUnmount(() => {
     color: yellow;
     text-align: center;
     pointer-events: none;
-    @media (width <= 480px) {
+    @media (max-width: 480px) {
       bottom: calc(var(--vh) * 1);
       font-size: 0.8em;
     }

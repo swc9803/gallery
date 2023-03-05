@@ -15,3 +15,40 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+.btn {
+    font-family: "Consolas", monospace;
+    padding: 3px 12px;
+    border: 1px solid black;
+    border-radius: 10em;
+    background: linear-gradient(
+      270deg,
+      rgba(0, 0, 0, 0.8),
+      rgba(0, 0, 0, 0.8),
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0)
+    );
+    background-size: 300% 300%;
+    transition: 0.3s ease-out;
+    cursor: pointer;
+    &:hover {
+      background-position: 100%;
+      color: white;
+    }
+    &.dark-mode {
+      border: 1px solid white;
+      color: white;
+      background: linear-gradient(
+        270deg,
+        rgba(255, 255, 255, 0.8),
+        rgba(255, 255, 255, 0.8),
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0)
+      );
+      background-size: 300% 300%;
+      &:hover {
+        background-position: 100%;
+        color: black;
+      }
+    }
+  }

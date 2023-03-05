@@ -646,14 +646,14 @@ onBeforeUnmount(() => {
     background: rgb(71, 56, 56);
     .speedWrapper {
       height: 100%;
-      @media (width <= 768px) {
+      @media (max-width: 768px) {
         & {
           width: 100%;
         }
       }
       .speed {
         height: 100%;
-        @media (width <= 768px) {
+        @media (max-width: 768px) {
           & {
             width: 100%;
           }
@@ -664,7 +664,7 @@ onBeforeUnmount(() => {
       position: relative;
       height: 100%;
       background: #cc3333;
-      @media (width <= 768px) {
+      @media (max-width: 768px) {
         & {
           width: 100%;
           height: auto;
@@ -681,7 +681,7 @@ onBeforeUnmount(() => {
         -webkit-text-stroke: 1px black;
         pointer-events: none;
         z-index: 1;
-        @media (width <= 768px) {
+        @media (max-width: 768px) {
           & {
             font-size: 3em;
           }
@@ -711,7 +711,7 @@ onBeforeUnmount(() => {
       font-size: 1.5em;
       font-weight: 600;
       color: white;
-      @media (width <= 768px) {
+      @media (max-width: 768px) {
         & {
           display: none;
         }

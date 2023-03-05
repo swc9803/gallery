@@ -97,7 +97,7 @@ const cards = [
     box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.7);
     transition: 0.5s;
     overflow: hidden;
-    @media (width <= 768px) {
+    @media (max-width: 768px) {
       & {
         border-radius: 1em;
       }

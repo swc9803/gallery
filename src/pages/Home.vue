@@ -11,7 +11,7 @@
         <div
           @click="goToGitHub"
           :class="{ 'dark-mode': props.onDarkMode }"
-          class="goBtn"
+          class="btn"
         >
           GitHub
         </div>
@@ -19,7 +19,7 @@
         <div
           @click="goToCodePen"
           :class="{ 'dark-mode': props.onDarkMode }"
-          class="goBtn"
+          class="btn"
         >
           CodePen
         </div>
@@ -100,17 +100,17 @@ onBeforeUnmount(() => {
   max-width: 1920px;
   margin: 0 auto;
   padding: 0 60px;
-  @media (width <= 1024px) {
+  @media (max-width: 1024px) {
     & {
       padding: 0 48px;
     }
   }
-  @media (width <= 768px) {
+  @media (max-width: 768px) {
     & {
       padding: 0 36px;
     }
   }
-  @media (width <= 480px) {
+  @media (max-width: 480px) {
     & {
       padding: 0 24px;
     }
@@ -119,22 +119,22 @@ onBeforeUnmount(() => {
     display: flex;
     justify-content: space-between;
     gap: 96px;
-    @media (width <= 1440px) {
+    @media (max-width: 1440px) {
       & {
         gap: 64px;
       }
     }
-    @media (width <= 1024px) {
+    @media (max-width: 1024px) {
       & {
         gap: 32px;
       }
     }
-    @media (width <= 768px) {
+    @media (max-width: 768px) {
       & {
         gap: 24px;
       }
     }
-    @media (width <= 480px) {
+    @media (max-width: 480px) {
       & {
         gap: 16px;
       }
@@ -157,41 +157,6 @@ onBeforeUnmount(() => {
       margin-top: 36px;
       gap: 12px;
       align-items: center;
-      .goBtn {
-        padding: 3px 12px;
-        border: 1px solid black;
-        border-radius: 10em;
-        background: linear-gradient(
-          270deg,
-          rgba(0, 0, 0, 0.8),
-          rgba(0, 0, 0, 0.8),
-          rgba(255, 255, 255, 0),
-          rgba(255, 255, 255, 0)
-        );
-        background-size: 300% 300%;
-        transition: 0.3s ease-out;
-        cursor: pointer;
-        &:hover {
-          background-position: 100%;
-          color: white;
-        }
-        &.dark-mode {
-          border: 1px solid white;
-          color: white;
-          background: linear-gradient(
-            270deg,
-            rgba(255, 255, 255, 0.8),
-            rgba(255, 255, 255, 0.8),
-            rgba(255, 255, 255, 0),
-            rgba(255, 255, 255, 0)
-          );
-          background-size: 300% 300%;
-          &:hover {
-            background-position: 100%;
-            color: black;
-          }
-        }
-      }
     }
   }
 }

@@ -81,7 +81,7 @@ onBeforeUnmount(() => {
   max-width: 1920px;
   height: calc(var(--vh, 1vh) * 100 - 128px);
   margin-bottom: 128px;
-  @media (width <= 768px) {
+  @media (max-width: 768px) {
     & {
       height: calc(var(--vh, 1vh) * 100 - 256px);
     }
@@ -94,7 +94,7 @@ onBeforeUnmount(() => {
     height: 100%;
     margin-top: 96px;
     border-radius: 2em;
-    @media (width <= 768px) {
+    @media (max-width: 768px) {
       & {
         position: absolute;
         top: 50%;
