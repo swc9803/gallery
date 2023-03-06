@@ -99,10 +99,6 @@ onMounted(() => {
     observer.observe(card);
   });
 
-  setInterval(() => {
-    console.log(threshold);
-  }, 1000);
-
   window.addEventListener("resize", onResize);
 });
 

@@ -108,6 +108,12 @@ const cards = [
       height: 100%;
       object-fit: cover;
       transition: 0.5s;
+      pointer-events: none;
+      @media (max-width: 480px) {
+        & {
+          filter: brightness(50%);
+        }
+      }
     }
     &:hover > .thumbnail {
       filter: brightness(25%);
@@ -133,6 +139,11 @@ const cards = [
       @media (max-width: 768px) {
         & {
           gap: 10px;
+        }
+      }
+      @media (max-width: 480px) {
+        & {
+          opacity: 1;
         }
       }
       a {
