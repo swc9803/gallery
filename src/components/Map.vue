@@ -14,6 +14,10 @@ import {
   defineEmits,
   defineExpose,
 } from "vue";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const maps = [
   { src: require("@/assets/project/spotlight.webp"), alt: "spot light" },
@@ -32,52 +36,44 @@ defineExpose({
 });
 
 const contentsRef = ref();
-let skewAni;
-let originPos,
-  newPos = 0;
-let speed = 0;
-
-const skewContent = () => {
-  if (Math.abs(speed) > 2) {
-    speed += speed > 0 ? -2 : 2;
-  } else {
-    speed = 0;
-  }
-
-  speed = speed > 100 ? 0 : speed;
-
-  if (Math.abs(speed) < 100) {
-    contentsRef.value.style.transform = `skewY(${speed}deg)`;
-  }
-
-  originPos = newPos;
-  skewAni = requestIdleCallback(skewContent);
-};
-
-const onScroll = () => {
-  newPos = window.pageYOffset;
-  if (matchMedia("(max-width: 480px)").matches) {
-    speed = (newPos - originPos) * 1.5;
-  } else {
-    speed = (newPos - originPos) * 0.15;
-  }
-};
 
 const emit = defineEmits(["move-to-card"]);
 const moveToCard = (i) => {
   emit("move-to-card", i);
 };
 
-onMounted(() => {
-  originPos = window.pageYOffset;
-  skewContent();
+let scrollTrigger;
+let proxy = { skew: 0 };
+let skew;
+const clamp = gsap.utils.clamp(-35, 35);
 
-  window.addEventListener("scroll", onScroll);
+onMounted(() => {
+  const skewSetter = gsap.quickSetter(".map", "skewY", "deg");
+
+  scrollTrigger = ScrollTrigger.create({
+    onUpdate: (self) => {
+      skew = matchMedia("(max-width: 480px)").matches
+        ? clamp(self.getVelocity() / -50)
+        : clamp(self.getVelocity() / -250);
+
+      if (Math.abs(skew) > Math.abs(proxy.skew)) {
+        proxy.skew = skew;
+        gsap.to(proxy, {
+          skew: 0,
+          overwrite: true,
+          duration: 0.7,
+          ease: "power3",
+          onUpdate: () => skewSetter(proxy.skew),
+        });
+      }
+    },
+  });
+
+  gsap.set(".map", { transformOrigin: "center center", force3D: true });
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener("scroll", onScroll);
-  cancelIdleCallback(skewAni);
+  scrollTrigger.kill();
 });
 </script>
 
@@ -85,7 +81,6 @@ onBeforeUnmount(() => {
 .mapWrapper {
   position: sticky;
   top: 0;
-  //   transform: skewY(1deg);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -94,7 +89,6 @@ onBeforeUnmount(() => {
   height: 100vh;
   padding-top: 64px;
   gap: 18px;
-  transition: transform 0.5s;
   @media (max-width: 768px) {
     & {
       width: 30%;

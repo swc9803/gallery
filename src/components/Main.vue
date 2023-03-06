@@ -22,22 +22,28 @@ const draw = (app) => {
   app.stage.filters = [displacementFilter];
 };
 
+let moveValue = 50;
+
 const onMouseMove = (e) => {
   displacementFilter.scale.x =
     (canvasRef.value.offsetWidth / 2 -
       (e.pageX - (window.innerWidth - img.width) / 2)) /
-    50;
+    moveValue;
   displacementFilter.scale.y =
-    (canvasRef.value.offsetHeight / 2 - (e.pageY - 64)) / 50;
+    (canvasRef.value.offsetHeight / 2 - (e.pageY - 64)) / moveValue;
 };
 
 const onTouchMove = (e) => {
+  matchMedia("(max-width: 480px)").matches
+    ? (moveValue = 30)
+    : (moveValue = 50);
+
   displacementFilter.scale.x =
     (canvasRef.value.offsetWidth / 2 -
       (e.touches[0].pageX - (window.innerWidth - img.width) / 2)) /
-    70;
+    moveValue;
   displacementFilter.scale.y =
-    (canvasRef.value.offsetHeight / 2 - e.touches[0].pageY) / 70;
+    (canvasRef.value.offsetHeight / 2 - e.touches[0].pageY) / moveValue;
   e.preventDefault();
 };
 
@@ -83,7 +89,7 @@ onBeforeUnmount(() => {
   margin-bottom: 128px;
   @media (max-width: 768px) {
     & {
-      height: calc(var(--vh, 1vh) * 100 - 256px);
+      height: calc(100vh - 256px);
     }
   }
   canvas {
@@ -99,8 +105,8 @@ onBeforeUnmount(() => {
         position: absolute;
         top: 50%;
         transform: translate(-50%, -50%);
-        width: calc(var(--vh, 1vh) * 40);
-        height: calc(var(--vh, 1vh) * 53.5);
+        width: 40vh;
+        height: 53.5vh;
         margin-top: 0;
       }
     }

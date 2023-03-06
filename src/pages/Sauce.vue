@@ -41,6 +41,7 @@ class Ball {
     this.speedY = Math.random() * 1.5 + 0.5;
     this.gravity = Math.random() * 0.003;
     this.vy = 0;
+    this.scaleX = 1;
     this.scaleY = 1;
   }
   update(ballArray) {
@@ -70,6 +71,7 @@ class Ball {
         }
       });
       if (this.scaleY >= 0.5) {
+        this.scaleX += 0.005;
         this.scaleY -= 0.01;
       }
     }
@@ -79,7 +81,7 @@ class Ball {
     context.ellipse(
       this.x,
       this.y,
-      this.radius,
+      this.radius * this.scaleX,
       this.radius * this.scaleY,
       0,
       0,
