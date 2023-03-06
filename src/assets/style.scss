@@ -16,6 +16,10 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+    overflow-y: scroll;
+}
+
 .btn {
     font-family: "Consolas", monospace;
     padding: 3px 12px;

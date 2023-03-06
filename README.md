@@ -1,6 +1,6 @@
-# vue3-template
+# sungwoo's gallery
 
 ### installed packages
 ```
-eslint, sass, sass-loader
+gsap, pixi.js, three
 
