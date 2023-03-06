@@ -69,39 +69,35 @@ const props = defineProps({
 });
 
 const toggleDarkMode = () => {
-  if (props.onDarkMode) {
-    gsap.to(emojiRef.value, {
+  gsap.fromTo(
+    emojiRef.value,
+    {
+      scale: 1,
+      rotate: 0,
+    },
+    {
       scale: 0,
-      rotate: "+=360",
+      rotate: 360,
       duration: 0.3,
       ease: "none",
       onComplete: () => {
         emit("change-theme");
-        gsap.to(emojiRef.value, {
-          scale: 1,
-          rotate: "+=360",
-          duration: 0.3,
-          ease: "none",
-        });
+        gsap.fromTo(
+          emojiRef.value,
+          {
+            scale: 0,
+            rotate: 360,
+          },
+          {
+            scale: 1,
+            rotate: 0,
+            duration: 0.3,
+            ease: "none",
+          }
+        );
       },
-    });
-  } else {
-    gsap.to(emojiRef.value, {
-      scale: 0,
-      rotate: "+=360",
-      duration: 0.3,
-      ease: "none",
-      onComplete: () => {
-        emit("change-theme");
-        gsap.to(emojiRef.value, {
-          scale: 1,
-          rotate: "+=360",
-          duration: 0.3,
-          ease: "none",
-        });
-      },
-    });
-  }
+    }
+  );
 };
 
 const moveToPort = () => {
@@ -116,7 +112,43 @@ const moveToCode = () => {
 
 const toggle = () => {
   toggleOn.value = !toggleOn.value;
-  onResize();
+  if (toggleOn.value) {
+    // on
+    gsap.to(headerRef.value, {
+      height: 172,
+      duration: 0.5,
+      ease: "none",
+    });
+    gsap.fromTo(
+      [navFlexRef1.value, navFlexRef2.value],
+      {
+        y: -172,
+      },
+      {
+        y: 0,
+        duration: 0.5,
+        ease: "none",
+      }
+    );
+  } else {
+    // off
+    gsap.to(headerRef.value, {
+      height: 64,
+      duration: 0.5,
+      ease: "none",
+    });
+    gsap.fromTo(
+      [navFlexRef1.value, navFlexRef2.value],
+      {
+        y: 0,
+      },
+      {
+        y: -172,
+        duration: 0.5,
+        ease: "none",
+      }
+    );
+  }
 };
 
 const onResize = () => {
@@ -132,46 +164,16 @@ const onResize = () => {
     });
   } else {
     // mobile
-    gsap.set([navFlexRef1.value, navFlexRef2.value], {
-      y: 0,
-      xPercent: -50,
-    });
     if (toggleOn.value) {
-      // on
-      gsap.to(headerRef.value, {
-        height: 172,
-        duration: 0.5,
-        ease: "none",
+      gsap.set([navFlexRef1.value, navFlexRef2.value], {
+        y: 0,
+        xPercent: -50,
       });
-      gsap.fromTo(
-        [navFlexRef1.value, navFlexRef2.value],
-        {
-          y: -172,
-        },
-        {
-          y: 0,
-          duration: 0.5,
-          ease: "none",
-        }
-      );
     } else {
-      // off
-      gsap.to(headerRef.value, {
-        height: 64,
-        duration: 0.5,
-        ease: "none",
+      gsap.set([navFlexRef1.value, navFlexRef2.value], {
+        y: -172,
+        xPercent: -50,
       });
-      gsap.fromTo(
-        [navFlexRef1.value, navFlexRef2.value],
-        {
-          y: 0,
-        },
-        {
-          y: -172,
-          duration: 0.5,
-          ease: "none",
-        }
-      );
     }
   }
 };
@@ -238,7 +240,7 @@ header {
       }
     }
     .logo {
-      line-height: 50px;
+      line-height: 64px;
       transition: 0.5s;
       font-family: "Monaco";
       @media (max-width: 768px) {
@@ -272,7 +274,7 @@ header {
     }
     .toggleBtn {
       position: relative;
-      margin-top: 12px;
+      margin-top: 21px;
       display: none;
       order: 2;
       @media (max-width: 768px) {
