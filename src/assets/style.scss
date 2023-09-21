@@ -2,11 +2,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
 }
 
 body {
 	overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 #app {
@@ -14,10 +14,6 @@ body {
     Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-    overflow-y: scroll;
 }
 
 .btn {

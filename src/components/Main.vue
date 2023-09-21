@@ -35,7 +35,7 @@ const onMouseMove = (e) => {
 
 const onTouchMove = (e) => {
   matchMedia("(max-width: 480px)").matches
-    ? (moveValue = 30)
+    ? (moveValue = 27)
     : (moveValue = 50);
 
   displacementFilter.scale.x =
