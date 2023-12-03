@@ -75,54 +75,45 @@ light2.target.position.set(0.5, 0, 0);
 scene.add(light2);
 scene.add(light2.target);
 
-// The source of models are https://market.pmnd.rs/
 let model1, model2, model3;
-gltfLoader.load(
-  "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/druid/model.gltf",
-  (model) => {
-    model1 = model;
-    model.scene.traverse(function (node) {
-      if (node.isMesh) {
-        node.castShadow = true;
-        node.name = "model1";
-      }
-    });
-    model.scene.scale.set(0.5, 0.5, 0.5);
-    model.scene.position.set(-1, -1, 0);
-    scene.add(model.scene);
-  }
-);
-gltfLoader.load(
-  "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/korrigan-hat/model.gltf",
-  (model) => {
-    model2 = model;
-    model.scene.traverse(function (node) {
-      if (node.isMesh) {
-        node.castShadow = true;
-        node.name = "model2";
-      }
-    });
-    model.scene.position.set(0, -1, 0);
-    scene.add(model.scene);
-    camera.lookAt(model.scene.position);
-  }
-);
-gltfLoader.load(
-  "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/korrigan-wolf/model.gltf",
-  (model) => {
-    model3 = model;
-    model.scene.traverse(function (node) {
-      if (node.isMesh) {
-        node.castShadow = true;
-        node.name = "model3";
-      }
-    });
-    model.scene.scale.set(0.85, 0.85, 0.85);
-    model.scene.position.set(1, -1, 0);
-    scene.add(model.scene);
-    loading.value = false;
-  }
-);
+gltfLoader.load("/drone/scene.gltf", (model) => {
+  model1 = model;
+  model.scene.traverse(function (node) {
+    if (node.isMesh) {
+      node.castShadow = true;
+      node.name = "model1";
+    }
+  });
+  model.scene.scale.set(1.6, 1.6, 1.6);
+  model.scene.position.set(-1, -1, 0);
+  scene.add(model.scene);
+});
+gltfLoader.load("/zombie/scene.gltf", (model) => {
+  model2 = model;
+  model.scene.traverse(function (node) {
+    if (node.isMesh) {
+      node.castShadow = true;
+      node.name = "model2";
+    }
+  });
+  model.scene.scale.set(0.4, 0.4, 0.4);
+  model.scene.position.set(0, -1, 0);
+  scene.add(model.scene);
+  camera.lookAt(model.scene.position);
+});
+gltfLoader.load("/astronaut/scene.gltf", (model) => {
+  model3 = model;
+  model.scene.traverse(function (node) {
+    if (node.isMesh) {
+      node.castShadow = true;
+      node.name = "model3";
+    }
+  });
+  model.scene.scale.set(0.25, 0.25, 0.25);
+  model.scene.position.set(1, -1, 0);
+  scene.add(model.scene);
+  loading.value = false;
+});
 
 function init() {
   loading.value = true;
@@ -162,7 +153,7 @@ function onClick(e) {
     const object = intersects[0].object;
     if (object.name === "model1") {
       cancelAnimationFrame(lightRaf);
-      message.value = "The winner is Druid!";
+      message.value = "The winner is Drone!";
       mixer = new THREE.AnimationMixer(model1.scene);
       mixer.clipAction(model1.animations[0]).play();
       gsap.to(camera.position, {
@@ -184,9 +175,9 @@ function onClick(e) {
       });
     } else if (object.name === "model2") {
       cancelAnimationFrame(lightRaf);
-      message.value = "The winner is Korrigan Hat!";
+      message.value = "The winner is Zombie!";
       mixer = new THREE.AnimationMixer(model2.scene);
-      mixer.clipAction(model2.animations[0]).play();
+      mixer.clipAction(model2.animations[2]).play();
       gsap.to(camera.position, {
         x: 0,
         y: -0.1,
@@ -205,10 +196,9 @@ function onClick(e) {
         },
       });
     } else if (object.name === "model3") {
-      message.value = "The winner is Korrigan Wolf!";
+      message.value = "The winner is Astronaut!";
       mixer = new THREE.AnimationMixer(model3.scene);
       mixer.clipAction(model3.animations[0]).play();
-      mixer.clipAction(model3.animations[2]).play();
       gsap.to(camera.position, {
         x: 1,
         y: -0.1,
@@ -237,7 +227,6 @@ function reSelection() {
   mixer.clipAction(model1.animations[0]).stop();
   mixer.clipAction(model2.animations[0]).stop();
   mixer.clipAction(model3.animations[0]).stop();
-  mixer.clipAction(model3.animations[2]).stop();
   gsap.to(camera.position, {
     x: 0,
     y: 0.5,
