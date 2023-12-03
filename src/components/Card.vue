@@ -60,11 +60,11 @@ const cards = [
     path: "slider",
   },
   {
-    src: require("@/assets/project/bed.webp"),
-    title: "It's dangerous beyond the blankets",
-    skills: "gsap",
-    alt: "bed",
-    path: "bed",
+    src: require("@/assets/project/rollercoaster.webp"),
+    title: "3D Roller Coaster",
+    skills: "gsap, scroll trigger, three.js",
+    alt: "rollercoaster",
+    path: "rollercoaster",
   },
   {
     src: require("@/assets/project/sauce.webp"),

@@ -4,7 +4,7 @@ import SpotLight from "../pages/SpotLight.vue";
 import Doll from "../pages/WindUpDoll.vue";
 import Seasons from "../pages/Seasons.vue";
 import Slider from "../pages/Slider.vue";
-import Bed from "../pages/Bed.vue";
+import Rollercoaster from "../pages/Rollercoaster.vue";
 import Sauce from "../pages/Sauce.vue";
 
 const routes = [
@@ -34,9 +34,9 @@ const routes = [
     component: Slider,
   },
   {
-    path: "/bed",
-    name: "bed",
-    component: Bed,
+    path: "/rollercoaster",
+    name: "rollercoaster",
+    component: Rollercoaster,
   },
   {
     path: "/sauce",

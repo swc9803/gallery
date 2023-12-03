@@ -24,7 +24,7 @@ const maps = [
   { src: require("@/assets/project/doll.webp"), alt: "wind-up doll" },
   { src: require("@/assets/project/seasons.webp"), alt: "four seasons" },
   { src: require("@/assets/project/slider.webp"), alt: "3d slider" },
-  { src: require("@/assets/project/bed.webp"), alt: "bed" },
+  { src: require("@/assets/project/rollercoaster.webp"), alt: "rollercoaster" },
   { src: require("@/assets/project/sauce.webp"), alt: "sauce" },
 ];
 
